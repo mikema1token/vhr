@@ -25,7 +25,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <el-form :model="loginForm" label-width="80px" v-bind:rules="rules">
+  <el-form :model="loginForm" label-width="80px" v-bind:rules="rules" class="loginContainer">
     <el-form-item label="登陆系统">
     </el-form-item>
     <el-form-item label="用户名" prop="username">
@@ -44,6 +44,15 @@ export default defineComponent({
   </el-form>
 </template>
 
-<style scoped>
-
+<style>
+  .loginContainer{
+    border-radius: 10px;
+    backgroud-clip: content-box;
+    margin: 180px auto;
+    width: 350px;
+    padding: 35px 35px 15px 35px;
+    background: rgb(255, 255, 255);
+    border: 1px solid #354a72;
+    //box-shadow: 0 0 25px #590b0b;
+  }
 </style>
