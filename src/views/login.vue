@@ -1,5 +1,6 @@
 <script>
 import {defineComponent} from 'vue'
+import axios from "axios";
 
 export default defineComponent({
   name: "loginVue",
@@ -12,20 +13,33 @@ export default defineComponent({
       },
       rules:{
         username:[{required: true,message: '请输入用户名', trigger:'blur'}],
-        password:[{min:3,max:8, message:'长度在3到8字符', trigger:'blur'}],
+        password:[{required:true,min:3,max:8, message:'长度在3到8字符', trigger:'blur'}],
       }
     }
   },
   methods: {
-    onSubmit(){
-      console.log("submit",this.loginForm.remember,this.loginForm.password,this.loginForm.username)
+    onSubmit(formName){
+      this.$refs[formName].validate((valid)=>{
+        if (valid){
+          axios.post("http://localhost:8080/login",{"username":this.loginForm.username,"password":this.loginForm.password}).then(
+              response=>{
+                console.log(response.data)
+              }
+          ).catch(error=>{
+            alert(error)
+          })
+        }else{
+          alert('请先输入用户名和密码')
+          return false
+        }
+      })
     }
   }
 })
 </script>
 
 <template>
-  <el-form :model="loginForm" label-width="80px" v-bind:rules="rules" class="loginContainer">
+  <el-form :model="loginForm" label-width="80px" v-bind:rules="rules" class="loginContainer" ref="LoginForm">
     <el-form-item label="登陆系统">
     </el-form-item>
     <el-form-item label="用户名" prop="username">
@@ -38,7 +52,7 @@ export default defineComponent({
       <el-switch v-model="loginForm.remember"></el-switch>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">登陆</el-button>
+      <el-button type="primary" @click="onSubmit('LoginForm')">登陆</el-button>
       <el-button>取消</el-button>
     </el-form-item>
   </el-form>
