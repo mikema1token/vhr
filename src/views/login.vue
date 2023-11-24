@@ -23,8 +23,7 @@ export default defineComponent({
         if (valid){
           axios.post("http://localhost:8080/login",{"username":this.loginForm.username,"password":this.loginForm.password}).then(
               response=>{
-                // window.sessionStorage.setItem("user",JSON.stringify(response))
-                window.sessionStorage.setItem("user","zt")
+                window.sessionStorage.setItem("user",JSON.stringify(response.data))
                 this.$router.replace("/home")
               }
           ).catch(error=>{

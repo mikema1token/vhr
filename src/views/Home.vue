@@ -1,10 +1,23 @@
 <script>
+import axios from "axios";
+
 export default {
   name: "Home",
   data(){
     return {
-      // user:JSON.parse(window.sessionStorage.getItem("user"))
-      user:window.sessionStorage.getItem("user")
+      user:JSON.parse(window.sessionStorage.getItem("user"))
+    }
+  },
+  methods: {
+    handleCommand(command){
+      if (command!="logout"){
+        return
+      }
+      axios.post("http://localhost:8080/logout",{},{}).then(response=>{
+        this.$message.info("exit")
+      }).catch(err=>{
+        this.$message.error(err)
+      })
     }
   }
 }
@@ -14,14 +27,14 @@ export default {
   <el-container>
     <el-header class="homeHeader">
       <div class="title">微人事</div>
-      <el-dropdown class="dropDown">
+      <el-dropdown class="dropDown" @command="handleCommand">
           <span class="el-dropdown-link">
-            {{user}}<i class="el-icon-arrow-down el-icon--right"></i>
+            {{user.username}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item>设置</el-dropdown-item>
-            <el-dropdown-item>注销登录</el-dropdown-item>
+            <el-dropdown-item command="nothing">个人中心</el-dropdown-item>
+            <el-dropdown-item command="nothing">设置</el-dropdown-item>
+            <el-dropdown-item command="logout">注销登录</el-dropdown-item>
           </el-dropdown-menu>
       </el-dropdown>
     </el-header>
@@ -58,5 +71,7 @@ export default {
 
   .dropDown{
     cursor: pointer;
+    display: flex;
+    justify-content: right;
   }
 </style>
