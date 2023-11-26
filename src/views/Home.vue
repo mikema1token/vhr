@@ -18,6 +18,9 @@ export default {
       }).catch(err=>{
         this.$message.error(err)
       })
+    },
+    handleSelect(index,path){
+      this.$router.push(index)
     }
   }
 }
@@ -39,8 +42,21 @@ export default {
       </el-dropdown>
     </el-header>
     <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-main>Main</el-main>
+      <el-aside width="200px">
+        <el-menu
+            default-active="2"
+            class="el-menu-vertical-demo"
+            @select="handleSelect">
+          <el-menu-item index="/test1">
+            <i class="el-icon-menu"></i>
+            <span slot="title"></span>
+            我是一个选项
+          </el-menu-item>
+        </el-menu>
+      </el-aside>
+      <el-main>Main
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
