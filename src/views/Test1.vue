@@ -7,7 +7,8 @@ export default defineComponent({
 </script>
 
 <template>
-  <p>wo shi test1</p>
+  <p>
+  </p>
 </template>
 
 <style scoped>
