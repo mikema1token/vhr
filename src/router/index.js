@@ -3,23 +3,16 @@ import VueRouter from 'vue-router'
 import loginVue from "@/views/login.vue";
 import Test1 from "@/views/Test1.vue";
 import Home from "@/views/Home.vue";
+import home from "@/views/Home.vue";
+import Test2 from "@/views/Test2.vue";
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
     name: 'login',
-    component: loginVue
-  },
-  {
-    path:'/home',
-    name:'home',
-    component: Home
-  },
-  {
-    path:'/home',
-    name:'home',
-    component: Home
+    component: loginVue,
+    hidden:true
   },
   {
     path:'/home',
@@ -27,9 +20,14 @@ const routes = [
     component: Home,
     children: [
       {
-        path:"/test1",
-        name:'test1',
+        name:"test1",
+        path:'/home/test1',
         component: Test1
+      },
+      {
+        name:"test2",
+        path:"/home/test2",
+        component: Test2
       }
     ]
   },

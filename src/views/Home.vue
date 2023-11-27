@@ -5,7 +5,8 @@ export default {
   name: "Home",
   data(){
     return {
-      user:JSON.parse(window.sessionStorage.getItem("user"))
+      user:JSON.parse(window.sessionStorage.getItem("user")),
+      useRouter: true
     }
   },
   methods: {
@@ -19,9 +20,6 @@ export default {
         this.$message.error(err)
       })
     },
-    handleSelect(index,path){
-      this.$router.push(index)
-    }
   }
 }
 </script>
@@ -46,12 +44,13 @@ export default {
         <el-menu
             default-active="2"
             class="el-menu-vertical-demo"
-            @select="handleSelect">
-          <el-menu-item index="/test1">
-            <i class="el-icon-menu"></i>
-            <span slot="title"></span>
-            我是一个选项
-          </el-menu-item>
+            :router="useRouter"
+            >
+          <el-submenu index="1" v-for="item of this.$router.options.routes" v-if="!item.hidden">
+            <el-menu-item v-for="item in item.children" :index="item.path">
+                {{item.name}}
+            </el-menu-item>
+          </el-submenu>
         </el-menu>
       </el-aside>
       <el-main>Main

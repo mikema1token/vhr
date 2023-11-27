@@ -8,7 +8,7 @@ export default defineComponent({
     return {
       loginForm:{
         username: 'admin',
-        password: 'super123',
+        password: 'admin123',
         remember: false
       },
       rules:{
