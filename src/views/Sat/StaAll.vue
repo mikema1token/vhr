@@ -2,13 +2,14 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-  name: "Test1"
+  name: "StaAll"
 })
 </script>
 
 <template>
-  <p>
-  </p>
+<div>
+  wo shi all
+</div>
 </template>
 
 <style scoped>

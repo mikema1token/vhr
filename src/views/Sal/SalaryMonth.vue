@@ -2,12 +2,14 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-  name: "Test2"
+  name: "SalaryMonth"
 })
 </script>
 
 <template>
-<p>good good</p>
+<div>
+  wo shi month
+</div>
 </template>
 
 <style scoped>

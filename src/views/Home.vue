@@ -6,7 +6,7 @@ export default {
   data(){
     return {
       user:JSON.parse(window.sessionStorage.getItem("user")),
-      useRouter: true
+      useRouter: true,
     }
   },
   methods: {
@@ -45,8 +45,12 @@ export default {
             default-active="2"
             class="el-menu-vertical-demo"
             :router="useRouter"
-            >
-          <el-submenu index="1" v-for="item of this.$router.options.routes" v-if="!item.hidden">
+            :unique-opened=true>
+          <el-submenu v-for="(item,key) in this.$router.options.routes" :index="key+''" v-if="!item.hidden" >
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>{{item.name}}</span>
+            </template>
             <el-menu-item v-for="item in item.children" :index="item.path">
                 {{item.name}}
             </el-menu-item>
