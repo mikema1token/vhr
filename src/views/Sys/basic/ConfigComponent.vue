@@ -2,14 +2,12 @@
 import {defineComponent} from 'vue'
 
 export default defineComponent({
-  name: "basic"
+  name: "ConfigComponent"
 })
 </script>
 
 <template>
-<div>
-  systen basic
-</div>
+<div>我是component</div>
 </template>
 
 <style scoped>
