@@ -7,6 +7,18 @@ import store from '@/store/index'
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+router.beforeEach((to,from,next)=>{
+  if (to.path==='/'){
+    next()
+  }else{
+    let user = window.sessionStorage.getItem("user")
+    if (user===null){
+      next('/')
+    }else{
+      next()
+    }
+  }
+})
 
 new Vue({
   router,

@@ -56,7 +56,7 @@ const routes = [
     component: Home,
     children: [
       {
-        name:"员工资料",
+        name:"员工的资料",
         path:'/home/per/emp',
         component: PerEmp
       },
@@ -152,7 +152,7 @@ const routes = [
         component: Config
       },
       {
-        name:"系统管理",
+        name:"系统的管理",
         path:'/home/system/manager',
         component: manager
       },
@@ -183,5 +183,7 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+
 
 export default router
