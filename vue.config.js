@@ -3,7 +3,8 @@ module.exports = {
     proxy: {
       '/':{
             target:'http://localhost:8081',
-            changeOrigin: true
+            changeOrigin: true,
+            ws:false
       }
     }
   }
