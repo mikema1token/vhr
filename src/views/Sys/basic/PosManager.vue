@@ -46,8 +46,19 @@ export default defineComponent({
           }
       )
     },
-    DeletePos(row){
-
+    DeletePos(index){
+        axios.post("http://localhost:8080/user/delete-pos",{id:this.tableData[index].id},{}).then(
+            (response)=>{
+                if (response.data.code!=="ok"){
+                  this.$message.error(response.data.data)
+                }else{
+                  this.getPosList()
+                }
+            },
+            (response)=>{
+                this.$message.error(response.data)
+            }
+        )
     }
   }
 })
@@ -81,7 +92,7 @@ export default defineComponent({
         <el-table-column label="操作" width="100">
           <template slot-scope="scope">
               <el-button type="text" size="small">修改</el-button>
-              <el-button type="text" size="small" @click="DeletePos()">删除</el-button>
+              <el-button type="text" size="small" @click="DeletePos(scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
