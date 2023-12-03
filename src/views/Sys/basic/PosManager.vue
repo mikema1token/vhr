@@ -6,7 +6,11 @@ export default defineComponent({
   data() {
     return {
       tableData: [],
-      posTitle: ''
+      posTitle: '',
+      dialogVisible:false,
+      id: 0,
+      input:"",
+      multiSelect: []
     }
   },
   mounted() {
@@ -59,6 +63,38 @@ export default defineComponent({
                 this.$message.error(response.data)
             }
         )
+    },
+    OpenDialog(index){
+      this.dialogVisible = true
+      this.id = this.tableData[index].id
+    },
+    UpdatePos(){
+        axios.post("http://localhost:8080/user/update-pos",{
+          id:this.id,
+          name:this.input
+        },{}).then((r)=>{if(r.data.code==='ok'){
+          this.getPosList()
+          this.dialogVisible = false
+        }})
+    },
+    MultiSelect(rows){
+      console.log(rows)
+      this.multiSelect = rows
+    },
+    BatchDelete(){
+      let ids = []
+      for (const r of this.multiSelect) {
+        ids.push(r.id)
+      }
+      axios.post("http://localhost:8080/user/delete-pos2",ids,{}).then(
+          (r)=>{
+            if (r.data.code==="ok"){
+              this.getPosList()
+            }else{
+              this.$message.info(r.data)
+            }
+          }
+      )
     }
   }
 })
@@ -73,7 +109,10 @@ export default defineComponent({
     <div>
       <el-table
           :data="tableData"
-          style="width: 50%">
+          style="width: 50%"
+          @selection-change="MultiSelect">
+        <el-table-column type="selection" width="55">
+        </el-table-column>
         <el-table-column
             prop="id"
             label="编号"
@@ -91,11 +130,26 @@ export default defineComponent({
         </el-table-column>
         <el-table-column label="操作" width="100">
           <template slot-scope="scope">
-              <el-button type="text" size="small">修改</el-button>
+              <el-button type="text" size="small" @click="OpenDialog(scope.$index)">修改</el-button>
               <el-button type="text" size="small" @click="DeletePos(scope.$index)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
+    </div>
+    <div>
+      <el-dialog
+          title="提示"
+          :visible.sync="dialogVisible"
+          width="30%">
+        <el-input v-model="input" placeholder="请输入修改后的职位名称"></el-input>
+        <span slot="footer" class="dialog-footer">
+    <el-button @click="()=>{this.dialogVisible=false,this.id=0}">取 消</el-button>
+    <el-button type="primary" @click="UpdatePos">确 定</el-button>
+  </span>
+      </el-dialog>
+    </div>
+    <div>
+      <el-button @click="BatchDelete">批量删除</el-button>
     </div>
   </div>
 
