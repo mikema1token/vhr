@@ -2,6 +2,7 @@
 import {defineComponent} from 'vue'
 import ConfigComponent from './basic/ConfigComponent.vue'
 import PosManager from "@/views/Sys/basic/PosManager.vue";
+import Permission from "@/views/Sys/basic/Permission.vue";
 export default defineComponent({
   name: "config",
   data(){
@@ -11,7 +12,8 @@ export default defineComponent({
   },
   components:{
     PosManager,
-   ConfigComponent
+   ConfigComponent,
+    Permission
   }
 })
 </script>
@@ -26,7 +28,9 @@ export default defineComponent({
     </el-tab-pane>
     <el-tab-pane label="职称管理" name="third"></el-tab-pane>
     <el-tab-pane label="奖惩规则" name="fourth"></el-tab-pane>
-    <el-tab-pane label="权限组" name="five"></el-tab-pane>
+    <el-tab-pane label="权限组" name="five">
+      <permission></permission>
+    </el-tab-pane>
   </el-tabs>
 </template>
 
